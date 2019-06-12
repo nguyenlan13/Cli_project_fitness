@@ -13,31 +13,25 @@ class Scraper
 
     def self.scrape_listings
         listings = self.get_listings
-
+        list = []
         listings.each do |info|
-            
-            #name = info.css("span#ctl00_MainContent_ClassContentGroup1_rptClasses_ctl00_lblTitle.lah3")[0].text
-            #description = info.css(("span")[1]).text
-            #description = info.css("span#ctl00_MainContent_ClassContentGroup1_rptClasses_ctl01_lblClassFullDesc").text
-            name = info.css(".lah3")[0].text
-            description = info.css("span#ctl00_MainContent_ClassContentGroup1_rptClasses_ctl00_lblDescription")[0].text
+            title_span = info.css(".lah3")
+            title_id = title_span.attr('id').value
+            description_name = title_id.sub! 'lblTitle', 'lblDescription'
+
+            name = title_span.children[0].text
+            description = info.css("#" + description_name)[0].text
             #binding.pry
             group_fitness = GroupFitness.new
             group_fitness.name = name
             group_fitness.description = description
-            #GroupFitness.new_from_listings(info)
-           
-        end
+            
+            list << group_fitness
 
-        # listings.each do |info|
-            #  group_fitness = GroupFitness.new
-            #  name = info.css(".lah3").text
-            #  description = info.css("#ctl00_MainContent_ClassContentGroup1_rptClasses_ctl01_lblClassFullDesc").text
-            #  #binding.pry
-            #  group_fitness.name = name
-            #  group_fitness.description = description
-         #end
-        #binding.pry
+            GroupFitness.new_from_listings(group_fitness)
+            binding.pry
+        end
+            puts list
     end
-    #binding.pry
+    
 end
