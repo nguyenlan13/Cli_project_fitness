@@ -1,4 +1,4 @@
-class GymClass
+class Gyms
 
     @@all = []
     attr_accessor :address, :schedule
@@ -12,4 +12,5 @@ class GymClass
     def self.all
         @@all
     end
+
 end
