@@ -2,8 +2,8 @@ class GroupFitness
 
 @@all = []
 
-attr_accessor :name, :description, :scrape_url
-#:gyms
+attr_accessor :name, :description, :scrape_url, :gyms, :zip_code
+
 
     # def self.new_from_listings(group_fitness)
     #     self.new(group_fitness.name, group_fitness.description)
@@ -15,9 +15,9 @@ attr_accessor :name, :description, :scrape_url
         @@all << self
     end
 
-    def to_s
-        @name
-    end
+    # def to_s
+    #     @name
+    # end
 
     def self.all
         @@all

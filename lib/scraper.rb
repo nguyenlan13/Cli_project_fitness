@@ -31,7 +31,6 @@ class Scraper
             group_fitness.description = description
             group_fitness.scrape_url = scrape_url
             
-
             list << group_fitness
             
             #puts group_fitness.description
@@ -42,21 +41,26 @@ class Scraper
     end
     
 
-
-    def self.scrape_locations(scrape_url, zip_code)
-        url = "https://www.lafitness.com" + scrape_url + "&postalcode=" + zip_code.to_s
-        pg = Nokogiri::HTML(open(url))
-
+    def self.get_locations(scrape_url, zip_code)
+        base_url = "https://www.lafitness.com" 
+        location_url = base_url + scrape_url + "&postalcode=" + zip_code.to_s
+        pg = Nokogiri::HTML(open(location_url))
+        
     end
 
     # def self.get_locations
     #     self.get_locations_page.css("")
-        
     # end
 
-    # def self.scrape_locations(zip_code, class_id)
-    #         locations = self.get_locations
-
-    # end
+    def self.scrape_locations(zip_code, class_id)
+        #locations = self.get_locations
+        # list_of_locatons = []
+        # locations.each do |location|
+        #     location_name = location.css(".aLink+b").text
+            #binding.pry
+            #location_class_schedule = 
+       # end
+    end
+    
     
 end
