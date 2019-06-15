@@ -12,8 +12,9 @@ class CLI
             elsif input == "y" || input == "yes"
                 self.group_fitness_list
                 group_fitness = self.ask_which_class
+                #Scraper.scrape_class_ids
                 self.ask_for_zip_code(group_fitness)
-                #@scraped_location = Scraper.get_locations(scrape_url, zip_code)
+
                 return
             else
                 #puts "printing list"
@@ -90,8 +91,10 @@ class CLI
         end
         zip_code = input.to_s
 
-        scrape_url = group_fitness.scrape_url
-        @scraped_location = Scraper.get_locations(scrape_url, zip_code)
+        #scrape_url = group_fitness.scrape_url
+        #fitness_class_id = group_fitness.fitness_class_id
+        #name = group_fitness.name
+        @scraped_location = Scraper.scrape_locations(zip_code, group_fitness)
 
         puts "\n\n"
         puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan.bold
@@ -122,7 +125,7 @@ class CLI
             i = index + 1
             puts "#{i} - #{gym.location_name}"
             puts "#{gym.address}"
-            puts "#{gym.schedule}"
+            #puts "#{gym.schedule}"
         end
     end
 

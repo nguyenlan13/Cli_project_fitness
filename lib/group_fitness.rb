@@ -2,16 +2,16 @@ class GroupFitness
 
 @@all = []
 
-attr_accessor :name, :description, :scrape_url, :gyms, :zip_code
+attr_accessor :name, :description, :gym, :schedule, :zip_code, :fitness_class_id
 
 
     # def self.new_from_listings(group_fitness)
     #     self.new(group_fitness.name, group_fitness.description)
     # end
-
-    def initialize(name=nil,description=nil)
+    def initialize(name=nil, description=nil, fitness_class_id=nil)
         @name = name
         @description = description
+        @fitness_class_id = fitness_class_id
         @@all << self
     end
 
@@ -24,7 +24,7 @@ attr_accessor :name, :description, :scrape_url, :gyms, :zip_code
     end
 
     # def find_by_name(name)
-    #     all.select {|fitness_klass| fitness_klass.name == name}[0]
+    #     all.select {|fitness_class| fitness_class.name == name}[0]
     # end
 
 
