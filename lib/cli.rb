@@ -19,7 +19,7 @@ class CLI
             else
                 #puts "printing list"
                 #puts input
-                puts "wtf?".cyan.bold
+                puts "wtf?".cyan
                 #return
             end
         end
@@ -31,7 +31,7 @@ class CLI
 
     def welcome
         puts "\n"
-        puts "Hello, welcome to LA Fitness!".cyan.bold
+        puts "Hello, welcome to LA Fitness!".cyan
         puts "\n"
     end
 
@@ -39,7 +39,7 @@ class CLI
 
     def ask_to_see_list
         puts "\n"
-        puts "Would you like to see the available group fitness classes? (y/n)".cyan.bold
+        puts "Would you like to see the available group fitness classes? (y/n)".cyan
         puts "\n\n"
         input = gets.strip
         puts "\n\n"
@@ -47,18 +47,16 @@ class CLI
     end
     
 
-
-
     def ask_which_class
         puts "\n\n"
-        puts "Please select class number to see description:".cyan.bold
+        puts "Please select class number to see description:".cyan
         puts "\n"
         #input = gets.strip.to_i
         input = gets.strip
 
         if input == "" || input == nil
             puts "\n\n"
-            puts "Sorry, please enter a number".cyan.bold
+            puts "Sorry, please enter a number".cyan
             puts "\n\n"
             self.ask_which_class
             return
@@ -78,13 +76,13 @@ class CLI
 
     def ask_for_zip_code(group_fitness)
         puts "\n\n"
-        puts "Please enter your zip code to find nearby gyms:".cyan.bold
+        puts "Please enter your zip code to find nearby gyms:".cyan
         puts "\n\n"
         input = gets.strip
                 
         if input == "" || input == nil
             puts "\n\n"
-            puts "Sorry, please enter a a valid zip code".cyan.bold
+            puts "Sorry, please enter a a valid zip code".cyan
             puts "\n\n"
             self.ask_for_zip_code(group_fitness)
             return
@@ -97,7 +95,7 @@ class CLI
         @scraped_location = Scraper.scrape_locations(zip_code, group_fitness)
 
         puts "\n\n"
-        puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan.bold
+        puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
         puts "\n\n"
         self.gym_locations_list
     end

@@ -1,7 +1,10 @@
 class Scraper
 
+    LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
+    LOCATIONS_BASE_URL = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
+
     def self.get_listings_page
-        doc = Nokogiri::HTML(open("https://www.lafitness.com/Pages/AerobicClasses.aspx"))
+        doc = Nokogiri::HTML(open(LISTINGS_URL))
     end
 
     def self.get_listings
@@ -17,13 +20,12 @@ class Scraper
             title_id = title_span.attr('id').value
             description_name = title_id.sub! 'lblTitle', 'lblDescription'
 
-            name = title_span.children[0].text
-
+            name = title_span.children[0].text.strip
             description = info.css("#" + description_name)[0].text
             #scrape_url = info.css("div:nth-child(4) div:nth-child(4) a").attr("href")
             #scrape_url = info.css("a[href^='/Pages']").attr("href")
 
-            #fitness_class_id = scrap_url.css()
+          
             #puts scrape_url
             #binding.pry
             group_fitness = GroupFitness.new
@@ -58,7 +60,6 @@ class Scraper
 
                     #puts id_name
                     #binding.pry
-                   # id_list = {'id_nam}
                     id_list[id_value] = id_name
                 end
              end
@@ -67,27 +68,30 @@ class Scraper
     end
 
     def self.get_locations_page(zip_code, group_fitness)
-        base_url = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
-        location_url = base_url + "&postalcode=" + zip_code.to_s + "&id=" + group_fitness.fitness_class_id.to_s + "&name=" + group_fitness.name.to_s
+        #base_url = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
+        location_url = LOCATIONS_BASE_URL + "&postalcode=" + zip_code.to_s + "&id=" + group_fitness.fitness_class_id.to_s + "&name=" + group_fitness.name.gsub(' ', '+').to_s
         pg = Nokogiri::HTML(open(location_url))
-        
+        #binding.pry
     end
 
     def self.get_locations(zip_code, group_fitness)
-        self.get_locations_page.css("div.panel.panel-default")
+        get_locations_page(zip_code, group_fitness).css("#tabViewByClub .panel-group").children
+        #binding.pry
     end
 
     def self.scrape_locations(zip_code, group_fitness)
         locations = self.get_locations(zip_code, group_fitness)
-        #binding.pry
-        # list_of_locations = []
-        # locations.each do |location|
-        #     location_name = location.css("a.aLink").text
-            #puts location_name
+        binding.pry
+        list_of_locations = []
+        locations.each do |location|
+            #location_name = location.css("a.aLink b").text
+            #location_address = location.css()
+            location_distance = location.css("span.iDistance").text
+            puts location_distance
             #binding.pry
-            #location_address = 
+            #location_schedule = 
 
-       #end
+       end
     #    return list_of_locations
     end
     
