@@ -2,6 +2,10 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 require 'colorize'
+require 'httparty'
+require 'json'
+
+
 
 
 module Fitness

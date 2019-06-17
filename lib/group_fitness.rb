@@ -8,10 +8,10 @@ attr_accessor :name, :description, :gym, :schedule, :zip_code, :fitness_class_id
     # def self.new_from_listings(group_fitness)
     #     self.new(group_fitness.name, group_fitness.description)
     # end
-    def initialize(name=nil, description=nil, fitness_class_id=nil)
+    def initialize(name=nil, description=nil)
         @name = name
         @description = description
-        @fitness_class_id = fitness_class_id
+        #@fitness_class_id = fitness_class_id
         @@all << self
     end
 

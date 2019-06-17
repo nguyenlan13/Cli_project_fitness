@@ -1,8 +1,10 @@
 class Scraper
 
     LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
-    LOCATIONS_BASE_URL = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
+    #LOCATIONS_BASE_URL = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
+    URL_TO_POST = 'https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList'
 
+    
     def self.get_listings_page
         doc = Nokogiri::HTML(open(LISTINGS_URL))
     end
@@ -28,7 +30,7 @@ class Scraper
           
             #puts scrape_url
             #binding.pry
-            group_fitness = GroupFitness.new
+            group_fitness = GroupFitness.new(name, description)
             group_fitness.name = name
             group_fitness.description = description
             group_fitness.fitness_class_id = list_ids.key(name)
@@ -42,9 +44,13 @@ class Scraper
 
     def self.get_class_ids
         self.get_listings_page.css("#ctl00_MainContent_DropDownListClasses")
+        #can this id be scraped within get listings method?
     end
 
     def self.scrape_class_ids
+
+        #check if ids can be scraped within scrape_listings method instead? - avoid opening same page to be scraped again
+        
         fitness_class_ids = self.get_class_ids
         id_list = {}
         
@@ -67,33 +73,50 @@ class Scraper
         return id_list
     end
 
-    def self.get_locations_page(zip_code, group_fitness)
-        #base_url = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
-        location_url = LOCATIONS_BASE_URL + "&postalcode=" + zip_code.to_s + "&id=" + group_fitness.fitness_class_id.to_s + "&name=" + group_fitness.name.gsub(' ', '+').to_s
-        pg = Nokogiri::HTML(open(location_url))
-        #binding.pry
-    end
+    # def self.get_locations_page(zip_code, group_fitness)
+    #     #base_url = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
+    #     location_url = LOCATIONS_BASE_URL + "&postalcode=" + zip_code.to_s + "&id=" + group_fitness.fitness_class_id.to_s + "&name=" + group_fitness.name.gsub(' ', '+').to_s
+    #     pg = Nokogiri::HTML(open(location_url))
+    #     #binding.pry
+    # end
 
-    def self.get_locations(zip_code, group_fitness)
-        get_locations_page(zip_code, group_fitness).css("#tabViewByClub .panel-group").children
+    def self.get_locations_post(zip_code, group_fitness)
+        #url_to_post = 'https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList'
+        response = HTTParty.post(
+            URL_TO_POST.to_s,
+            :body => "{ClassId: #{group_fitness.fitness_class_id}, ZipCode: '#{zip_code}', MileRange: 10}",#{"ClassId" => '26', "ZipCode" => "'92614'", "MileRange" => '10' }.to_json,
+            :headers => {
+                "Content-Type" => "application/json; charset=UTF-8",
+                "Accept" => "*/*"
+            }
+        )
         #binding.pry
-    end
-
-    def self.scrape_locations(zip_code, group_fitness)
-        locations = self.get_locations(zip_code, group_fitness)
+        parsed_locations = JSON.parse(response)
+        # token = parsed_locations["token"]
+        location_name = 
         binding.pry
-        list_of_locations = []
-        locations.each do |location|
-            #location_name = location.css("a.aLink b").text
-            #location_address = location.css()
-            location_distance = location.css("span.iDistance").text
-            puts location_distance
-            #binding.pry
-            #location_schedule = 
-
-       end
-    #    return list_of_locations
     end
+
+    # def self.get_locations(zip_code, group_fitness)
+    #     get_locations_page(zip_code, group_fitness)#.css("#tabViewByClub .panel-group").children
+    #     #binding.pry
+    # end
+
+    # def self.scrape_locations(zip_code, group_fitness)
+    #     locations = self.get_locations(zip_code, group_fitness)
+    #     #binding.pry
+    #     list_of_locations = []
+    #     locations.each do |location|
+    #         #location_name = location.css("a.aLink b").text
+    #         #location_address = location.css()
+    #         location_distance = location.css("span.iDistance").text
+    #         puts location_distance
+    #         #binding.pry
+    #         #location_schedule = 
+
+    #    end
+    # #    return list_of_locations
+    # end
     
     
 end

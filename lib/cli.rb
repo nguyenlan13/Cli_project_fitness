@@ -1,5 +1,10 @@
 class CLI
 
+    # def run
+    #     Scraper.get_locations_post(" "," ")
+
+    # end
+
     def run
         self.welcome
         @scraped_list = Scraper.scrape_listings
@@ -7,6 +12,9 @@ class CLI
         loop do
             input = self.ask_to_see_list
             if input == "exit" || input == "n"
+
+
+                #downcase inputs?
                 #puts "exiting..."
                 return
             elsif input == "y" || input == "yes"
@@ -14,7 +22,7 @@ class CLI
                 group_fitness = self.ask_which_class
                 #Scraper.scrape_class_ids
                 self.ask_for_zip_code(group_fitness)
-
+               
                 return
             else
                 #puts "printing list"
@@ -92,17 +100,17 @@ class CLI
         #scrape_url = group_fitness.scrape_url
         #fitness_class_id = group_fitness.fitness_class_id
         #name = group_fitness.name
-        @scraped_location = Scraper.scrape_locations(zip_code, group_fitness)
+        #@scraped_location = Scraper.scrape_locations(zip_code, group_fitness)
 
         puts "\n\n"
         puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
         puts "\n\n"
-        self.gym_locations_list
+        @location_post = Scraper.get_locations_post(zip_code, group_fitness)
+        #self.gym_locations_list
     end
-
+#puts ""
 
     def group_fitness_list
-    #     #puts ""
     #     # user_input = gets
     #     # group_fitness_name = GroupFitness.find_by_name(user_input)
     #     # return if group_fitness_name.nil?
@@ -111,7 +119,7 @@ class CLI
             #binding.pry
             i = index + 1
              puts "#{i} - #{fitness_class.name}"
-             #binding.pry
+            #  binding.pry
              #counter +=1
         end       
     end
@@ -123,9 +131,11 @@ class CLI
             i = index + 1
             puts "#{i} - #{gym.location_name}"
             puts "#{gym.address}"
+            #puts "#{gym.distance}"
             #puts "#{gym.schedule}"
         end
     end
 
+    
 
 end
