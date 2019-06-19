@@ -15,6 +15,6 @@ end
 
 require_relative "./fitness/version"
 require_relative './group_fitness'
-require_relative './gyms'
+require_relative './gym_locations'
 require_relative './scraper'
 require_relative './cli'
