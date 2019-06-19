@@ -1,4 +1,4 @@
-class Gyms
+class GymLocations
 
     @@all = []
     attr_accessor :location_name, :address, :distance

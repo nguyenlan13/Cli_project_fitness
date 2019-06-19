@@ -2,7 +2,7 @@ class GroupFitness
 
 @@all = []
 
-attr_accessor :name, :description, :gym, :schedule, :zip_code, :fitness_class_id
+attr_accessor :name, :description, :gym_location, :schedule, :zip_code, :fitness_class_id
 
 
     # def self.new_from_listings(group_fitness)

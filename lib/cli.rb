@@ -106,7 +106,7 @@ class CLI
         puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
         puts "\n\n"
         @location_post = Scraper.get_locations_post(zip_code, group_fitness)
-        #self.gym_locations_list
+        self.gym_locations_list
     end
 #puts ""
 
@@ -127,10 +127,10 @@ class CLI
 
 
     def gym_locations_list
-        Gyms.all.each_with_index do |gym, index|
+        GymLocations.all.each_with_index do |gym_location, index|
             i = index + 1
-            puts "#{i} - #{gym.location_name}"
-            puts "#{gym.address}"
+            puts "#{i} - #{gym_location.location_name}"
+            puts "#{gym_location.address}"
             #puts "#{gym.distance}"
             #puts "#{gym.schedule}"
         end
