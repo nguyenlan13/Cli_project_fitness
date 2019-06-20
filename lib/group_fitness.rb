@@ -2,22 +2,14 @@ class GroupFitness
 
 @@all = []
 
-attr_accessor :name, :description, :gym_location, :schedule, :zip_code, :fitness_class_id
+attr_accessor :name, :description, :gym_location, :zip_code, :fitness_class_id, :class_schedule
 
-
-    # def self.new_from_listings(group_fitness)
-    #     self.new(group_fitness.name, group_fitness.description)
-    # end
-    def initialize(name=nil, description=nil)
+    def initialize(name=nil, description=nil, class_schedule=nil)
         @name = name
         @description = description
         #@fitness_class_id = fitness_class_id
         @@all << self
     end
-
-    # def to_s
-    #     @name
-    # end
 
     def self.all
         @@all

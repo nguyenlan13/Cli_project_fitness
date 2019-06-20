@@ -26,11 +26,10 @@ class Scraper
             description = info.css("#" + description_name)[0].text
         
             #binding.pry
-            group_fitness = GroupFitness.new#(name, description)
+            group_fitness = GroupFitness.new#(name,description)
             group_fitness.name = name
             group_fitness.description = description
             group_fitness.fitness_class_id = list_ids.key(name)
-            #group_fitness.scrape_url = scrape_url
             
             list << group_fitness
             #binding.pry
@@ -44,7 +43,6 @@ class Scraper
     end
 
     def self.scrape_class_ids
-
         #check if ids can be scraped within scrape_listings method instead? - avoid opening same page to be scraped again
         
         fitness_class_ids = self.get_class_ids
@@ -53,7 +51,6 @@ class Scraper
         fitness_class_ids.each do |info|
 
             info.children.each do |data, index|
-                #binding.pry
                 if data.children.text != "" && data.children.text != "Select a Class..."
                     #puts data.attributes['value']
                     #puts data.children.text
@@ -63,7 +60,7 @@ class Scraper
                     #binding.pry
                     id_list[id_value] = id_name
                 end
-             end
+            end
         end
         return id_list
     end
@@ -77,49 +74,42 @@ class Scraper
 
     def self.get_locations_post(zip_code, group_fitness)
         response = HTTParty.post(
-            URL_TO_POST,
-            :body => JSON.generate({ClassId: group_fitness.fitness_class_id, ZipCode: zip_code, MileRange: 10}),
-           
-            :headers => {
-                 "Content-Type" => "application/json; charset=UTF-8",
-                 "Accept" => "*/*"
-            }
+          URL_TO_POST,
+          :body => JSON.generate({ClassId: group_fitness.fitness_class_id, ZipCode: zip_code, MileRange: 10}),
+          :headers => {
+              "Content-Type" => "application/json; charset=UTF-8",
+              "Accept" => "*/*"
+          }
         )
-        #binding.pry
-
+     
         locations = response['d'][0]['ViewByClub']
- 
+
         list_of_locations = []
         locations.each do |location, details|
             location_name = location['ClubName']
             location_address1 = location['AddressLine1']
             location_address2 = location['AddressLine2']
-            address = location_address1 + " " + location_address2
+            address = "#{location_address1} #{location_address2}"
             distance = location['Distance']
-        
-            #binding.pry
             schedules = location['ClassSchedule']
-
+         
+            gym_location = GymLocations.new
+            gym_location.location_name = location_name
+            gym_location.address = address 
+            gym_location.distance = distance
+        
+            class_schedule = ""
             schedules.each do |schedule, details|
                 day = schedule['Day']
                 time = schedule['Time']
-                # if schedule['instructor'] != nil
-                # instructor = schedule['instructor'].strip
-                # end
-                # class_schedule = day + time + instructor
-        #binding.pry
-        
-            gym_location = GymLocations.new
-            gym_location.location_name = location_name
-            gym_location.address = address
-            gym_location.distance = distance
-            # gym_location.class_schedule = class_schedule
-                
-            list_of_locations << gym_location
+                instructor = schedule['Instructor'].strip
+                class_schedule += "#{day} - #{time} - #{instructor}\n"
             end
+            gym_location.class_schedule = class_schedule;
+        
+            list_of_locations << gym_location
         end
         return list_of_locations
     end
 end
-    
- 
+
