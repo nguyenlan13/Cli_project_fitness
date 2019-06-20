@@ -7,7 +7,6 @@ class GymLocation
         @location_name = location_name
         @address = address
         @distance = distance
-        #@class_schedule = class_schedule
         @@all << self
     end
 

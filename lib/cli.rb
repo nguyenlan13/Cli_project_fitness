@@ -6,6 +6,8 @@ class CLI
         loop do
             input = self.ask_to_see_list.downcase
             if input == "exit" || input == "n"
+                puts "See you next time!".cyan
+                puts "\n\n"
                 return
             elsif input == "y" || input == "yes"
                 self.group_fitness_list
@@ -61,7 +63,6 @@ class CLI
           puts "\n\n"
           return self.ask_which_class
         end
-
         puts "\n\n"
         puts group_fitness.name
         puts "\n"
@@ -82,12 +83,9 @@ class CLI
             puts "\n\n"
             return self.ask_for_zip_code(group_fitness)
         end
-
         zip_code = input.to_s
         return zip_code
     end
-
-
 
     def show_classes_by_zip(zip_code, group_fitness)
         @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
@@ -99,8 +97,6 @@ class CLI
             group_fitness = self.ask_which_class
             zip_code = self.ask_for_zip_code(group_fitness)
             self.show_classes_by_zip(zip_code, group_fitness)
-
-            # self.gym_locations_list
         else
             puts "\n\n"
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan

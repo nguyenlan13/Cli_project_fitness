@@ -1,7 +1,6 @@
 class Scraper
 
     LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
-    #LOCATIONS_BASE_URL = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
     URL_TO_POST = "https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList"
 
     def self.get_listings_page
@@ -42,7 +41,6 @@ class Scraper
     def self.scrape_class_ids
         fitness_class_ids = self.get_class_ids
         id_list = {}
-        
         fitness_class_ids.each do |info|
             info.children.each do |data, index|
                 if data.children.text != "" && data.children.text != "Select a Class..."
@@ -54,13 +52,6 @@ class Scraper
         end
         return id_list
     end
-
-    # def self.get_locations_page(zip_code, group_fitness)
-    #     #base_url = "https://lafitness.com/Pages/LocateClassNearYou.aspx?camefrom=1&radius=10"
-    #     location_url = LOCATIONS_BASE_URL + "&postalcode=" + zip_code.to_s + "&id=" + group_fitness.fitness_class_id.to_s + "&name=" + group_fitness.name.gsub(' ', '+').to_s
-    #     pg = Nokogiri::HTML(open(location_url))
-    #     #binding.pry
-    # end
 
     def self.get_locations_post(zip_code, group_fitness)
         response = HTTParty.post(
@@ -96,7 +87,6 @@ class Scraper
                 class_schedule += "#{day}  #{time} - #{instructor}\n"
             end
             gym_location.class_schedule = class_schedule
-        
             list_of_locations << gym_location
         end
         return list_of_locations
