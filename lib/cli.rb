@@ -37,7 +37,7 @@ class CLI
         puts "\n\n"
         return input
     end
-    
+
 
     def ask_which_class
         puts "\n\n"
@@ -87,6 +87,7 @@ class CLI
         return zip_code
     end
 
+
     def show_classes_by_zip(zip_code, group_fitness)
         @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
         if  @get_locations == nil || @get_locations.empty?
@@ -102,6 +103,7 @@ class CLI
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
             puts "\n\n"
             self.gym_locations_list
+        #
             return       
         end
     end
