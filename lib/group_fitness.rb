@@ -2,9 +2,9 @@ class GroupFitness
 
 @@all = []
 
-attr_accessor :name, :description, :gym_location, :zip_code, :fitness_class_id, :class_schedule
+attr_accessor :name, :description, :gym_location, :zip_code, :fitness_class_id #:class_schedule
 
-    def initialize(name=nil, description=nil, class_schedule=nil)
+    def initialize(name=nil, description=nil, fitness_class_id=nil)
         @name = name
         @description = description
         #@fitness_class_id = fitness_class_id

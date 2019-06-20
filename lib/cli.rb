@@ -3,23 +3,18 @@ class CLI
     def run
         self.welcome
         @scraped_list = Scraper.scrape_listings
-       
         loop do
-            input = self.ask_to_see_list
+            input = self.ask_to_see_list.downcase
             if input == "exit" || input == "n"
-                #downcase inputs?
                 return
             elsif input == "y" || input == "yes"
                 self.group_fitness_list
                 group_fitness = self.ask_which_class
-                #Scraper.scrape_class_ids
-                self.ask_for_zip_code(group_fitness)
+                zip_code = self.ask_for_zip_code(group_fitness)
+                self.show_classes_by_zip(zip_code, group_fitness)
                 return
             else
-                #puts "printing list"
-                #puts input
-                puts "wtf?".cyan
-                #return
+                puts "Sorry, please enter a valid response (y/n)".cyan
             end
         end
     end
@@ -27,7 +22,7 @@ class CLI
 
     def welcome
         puts "\n"
-        puts "Hello, welcome to LA Fitness!".cyan
+        puts "Hello, welcome to LA Fitness!".bold.cyan
         puts "\n"
     end
 
@@ -48,9 +43,9 @@ class CLI
         puts "\n"
         input = gets.strip
 
-        if input == "" || input == nil
+        if input == "" || input == nil || input != input.to_i.to_s 
             puts "\n\n"
-            puts "Sorry, please enter a number".cyan
+            puts "Sorry, please enter a valid number".cyan
             puts "\n\n"
             self.ask_which_class
             return
@@ -59,6 +54,14 @@ class CLI
         index = input.to_i - 1
 
         group_fitness = @scraped_list[index]
+        
+        if group_fitness == nil
+          puts "\n\n"
+          puts "Please select an available class from the list".cyan
+          puts "\n\n"
+          return self.ask_which_class
+        end
+
         puts "\n\n"
         puts group_fitness.name
         puts "\n"
@@ -73,50 +76,57 @@ class CLI
         puts "\n\n"
         input = gets.strip
                 
-        if input == "" || input == nil
+        if input == "" || input == nil || input != input.to_i.to_s
             puts "\n\n"
             puts "Sorry, please enter a a valid zip code".cyan
             puts "\n\n"
-            self.ask_for_zip_code(group_fitness)
-            return
+            return self.ask_for_zip_code(group_fitness)
         end
-        
-        zip_code = input.to_s
 
-        puts "\n\n"
-        puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
-        puts "\n\n"
-        @location_post = Scraper.get_locations_post(zip_code, group_fitness)
-        self.gym_locations_list
+        zip_code = input.to_s
+        return zip_code
     end
 
 
-    def group_fitness_list
-    #     # user_input = gets
-    #     # group_fitness_name = GroupFitness.find_by_name(user_input)
-    #     # return if group_fitness_name.nil?
-       
+
+    def show_classes_by_zip(zip_code, group_fitness)
+        @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
+        if  @get_locations == nil || @get_locations.empty?
+            puts "\n\n"
+            puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".cyan
+            puts "\n\n"
+            self.group_fitness_list
+            group_fitness = self.ask_which_class
+            zip_code = self.ask_for_zip_code(group_fitness)
+            self.show_classes_by_zip(zip_code, group_fitness)
+
+            # self.gym_locations_list
+        else
+            puts "\n\n"
+            puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
+            puts "\n\n"
+            self.gym_locations_list
+            return       
+        end
+    end
+
+
+    def group_fitness_list      
         GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
-            #binding.pry
             i = index + 1
-             puts "#{i} - #{fitness_class.name}"
-            #  binding.pry
+            puts "#{i} - #{fitness_class.name}"
         end       
     end
 
 
-
     def gym_locations_list
-        GymLocations.all.each_with_index do |gym_location, index|
+        GymLocation.all.each_with_index do |gym_location, index|
             i = index + 1
             puts "#{i} - #{gym_location.location_name}"
             puts "#{gym_location.address}"
             puts "#{gym_location.distance}"
-            #puts "#{gym_location.schedule}"
+            puts "#{gym_location.class_schedule}"
             puts "\n\n"
         end
     end
-
-    
-
 end
