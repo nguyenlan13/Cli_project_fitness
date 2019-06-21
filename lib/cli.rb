@@ -54,19 +54,18 @@ class CLI
         end
        
         index = input.to_i - 1
-
         group_fitness = @scraped_list[index]
         
         if group_fitness == nil
-          puts "\n\n"
-          puts "Please select an available class from the list".cyan
-          puts "\n\n"
-          return self.ask_which_class
+            puts "\n\n"
+            puts "Please select an available class from the list".cyan
+            puts "\n\n"
+            return self.ask_which_class
         end
-        puts "\n\n"
-        puts group_fitness.name
-        puts "\n"
-        puts group_fitness.description
+            puts "\n\n"
+            puts group_fitness.name
+            puts "\n"
+            puts group_fitness.description
         return group_fitness
     end
 

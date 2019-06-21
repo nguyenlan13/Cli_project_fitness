@@ -4,17 +4,13 @@ class Scraper
     URL_TO_POST = "https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList"
     @@doc = Nokogiri::HTML(open(LISTINGS_URL))
 
-    # def self.get_listings_page
-    #   @doc ||= Nokogiri::HTML(open(LISTINGS_URL))
-    # end
 
     def self.get_listings
         @@doc.css(".classdesc")
-        #self.get_listings_page.css(".classdesc")
     end
 
+
     def self.scrape_listings
-        
         listings = self.get_listings
         list = []
         list_ids = self.scrape_class_ids
@@ -36,10 +32,11 @@ class Scraper
         return list
     end
 
+
     def self.get_class_ids
         @@doc.css("#ctl00_MainContent_DropDownListClasses")
-        #self.get_listings_page.css("#ctl00_MainContent_DropDownListClasses")
     end
+
 
     def self.scrape_class_ids
         fitness_class_ids = self.get_class_ids
@@ -56,6 +53,7 @@ class Scraper
         return id_list
     end
 
+    
     def self.get_locations_post(zip_code, group_fitness)
         response = HTTParty.post(
           URL_TO_POST,

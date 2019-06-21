@@ -1,6 +1,7 @@
 class GymLocation
 
     @@all = []
+
     attr_accessor :location_name, :address, :distance, :class_schedule
 
     def initialize(location_name=nil, address=nil, distance=nil)
@@ -13,5 +14,4 @@ class GymLocation
     def self.all
         @@all
     end
-
 end

@@ -1,8 +1,9 @@
 class GroupFitness
 
-@@all = []
+    @@all = []
 
-attr_accessor :name, :description, :gym_location, :zip_code, :fitness_class_id
+    attr_accessor :name, :description, :gym_location, :fitness_class_id
+    attr_writer :zip_code
 
     def initialize(name=nil, description=nil, fitness_class_id=nil)
         @name = name
