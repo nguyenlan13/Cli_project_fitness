@@ -24,14 +24,14 @@ class CLI
 
     def welcome
         puts "\n"
-        puts "Hello, welcome to LA Fitness!".bold.green
+        puts "Hello, welcome to LA Fitness!".bold.yellow
         puts "\n"
     end
 
 
     def ask_to_see_list
         puts "\n"
-        puts "Would you like to see the available group fitness classes? (y/n)".cyan
+        puts "Would you like to see the available group fitness classes? (y/n)".magenta
         puts "\n\n"
         input = gets.strip
         puts "\n\n"
@@ -41,7 +41,7 @@ class CLI
 
     def ask_which_class
         puts "\n\n"
-        puts "Please select class number to see description:".cyan
+        puts "Please select class number to see description:".magenta
         puts "\n"
         input = gets.strip
         if input == "" || input == nil || input != input.to_i.to_s 
@@ -70,7 +70,7 @@ class CLI
 
     def ask_for_zip_code(group_fitness)
         puts "\n\n"
-        puts "Please enter your zip code to find nearby gyms:".cyan
+        puts "Please enter your zip code to find nearby gyms:".magenta
         puts "\n\n"
         input = gets.strip
                 
@@ -97,7 +97,7 @@ class CLI
             self.show_classes_by_zip(zip_code, group_fitness)
         else
             puts "\n\n"
-            puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
+            puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".magenta
             puts "\n\n"
             self.gym_locations_list
             return       
@@ -108,7 +108,7 @@ class CLI
     def group_fitness_list      
         GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
             i = index + 1
-            puts "#{i} - #{fitness_class.name}"
+            puts "#{i}".magenta + " - " + "#{fitness_class.name}".yellow
         end       
     end
 
@@ -116,10 +116,12 @@ class CLI
     def gym_locations_list
         GymLocation.all.each_with_index do |gym_location, index|
             i = index + 1
-            puts "#{i} - #{gym_location.location_name}"
-            puts "#{gym_location.address}"
-            puts "#{gym_location.distance}"
-            puts "#{gym_location.class_schedule}"
+            puts "#{i}".bold.magenta + " - " + "#{gym_location.location_name}".bold.yellow
+            puts "#{gym_location.address}".bold.yellow
+            puts "\n"
+            puts "#{gym_location.distance}".yellow
+            puts "\n"
+            puts "#{gym_location.class_schedule}".magenta
             puts "\n\n"
         end
     end
