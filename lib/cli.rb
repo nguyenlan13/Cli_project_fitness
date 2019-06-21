@@ -44,17 +44,14 @@ class CLI
         puts "Please select class number to see description:".cyan
         puts "\n"
         input = gets.strip
-        # if input != '0' && input.to_i.to_s != input.strip
         if input == "" || input == nil || input != input.to_i.to_s 
             puts "\n\n"
             puts "Sorry, please enter a valid number".red
             puts "\n\n"
-            self.ask_which_class
-            return
+            return self.ask_which_class
         end
-        
+
         index = input.to_i - 1
-    
         group_fitness = @scraped_list[index]
         if group_fitness == nil
             puts "\n\n"
@@ -67,7 +64,7 @@ class CLI
             puts "\n"
             puts group_fitness.description
             puts "\n"
-        return group_fitness
+            return group_fitness
     end
 
 
