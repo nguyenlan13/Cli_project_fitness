@@ -90,7 +90,7 @@ class CLI
 
     def show_classes_by_zip(zip_code, group_fitness)
         @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
-        if  @get_locations == nil || @get_locations.empty?
+        if  @get_locations.nil? || @get_locations.empty?
             puts "\n\n"
             puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".cyan
             puts "\n\n"
@@ -103,7 +103,6 @@ class CLI
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".cyan
             puts "\n\n"
             self.gym_locations_list
-        #
             return       
         end
     end

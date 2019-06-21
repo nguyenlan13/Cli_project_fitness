@@ -2,13 +2,15 @@ class Scraper
 
     LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
     URL_TO_POST = "https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList"
+    @@doc = Nokogiri::HTML(open(LISTINGS_URL))
 
-    def self.get_listings_page
-      @doc ||= Nokogiri::HTML(open(LISTINGS_URL))
-    end
+    # def self.get_listings_page
+    #   @doc ||= Nokogiri::HTML(open(LISTINGS_URL))
+    # end
 
     def self.get_listings
-        self.get_listings_page.css(".classdesc")
+        @@doc.css(".classdesc")
+        #self.get_listings_page.css(".classdesc")
     end
 
     def self.scrape_listings
@@ -35,7 +37,8 @@ class Scraper
     end
 
     def self.get_class_ids
-        self.get_listings_page.css("#ctl00_MainContent_DropDownListClasses")
+        @@doc.css("#ctl00_MainContent_DropDownListClasses")
+        #self.get_listings_page.css("#ctl00_MainContent_DropDownListClasses")
     end
 
     def self.scrape_class_ids
