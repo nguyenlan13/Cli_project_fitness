@@ -8,6 +8,7 @@ class GroupFitness
     def initialize(name=nil, description=nil, fitness_class_id=nil)
         @name = name
         @description = description
+        @fitness_class_id = fitness_class_id
         @@all << self
     end
 

@@ -6,7 +6,7 @@ class CLI
         loop do
             input = self.ask_to_see_list.downcase
             if input == "exit" || input == "n"
-                puts "See you next time!".cyan
+                puts "See you next time!".red
                 puts "\n\n"
                 return
             elsif input == "y" || input == "yes"
@@ -16,7 +16,7 @@ class CLI
                 self.show_classes_by_zip(zip_code, group_fitness)
                 return
             else
-                puts "Sorry, please enter a valid response (y/n)".cyan
+                puts "Sorry, please enter a valid response (y/n)".red
             end
         end
     end
@@ -24,7 +24,7 @@ class CLI
 
     def welcome
         puts "\n"
-        puts "Hello, welcome to LA Fitness!".bold.cyan
+        puts "Hello, welcome to LA Fitness!".bold.green
         puts "\n"
     end
 
@@ -44,28 +44,29 @@ class CLI
         puts "Please select class number to see description:".cyan
         puts "\n"
         input = gets.strip
-
+        # if input != '0' && input.to_i.to_s != input.strip
         if input == "" || input == nil || input != input.to_i.to_s 
             puts "\n\n"
-            puts "Sorry, please enter a valid number".cyan
+            puts "Sorry, please enter a valid number".red
             puts "\n\n"
             self.ask_which_class
             return
         end
-       
-        index = input.to_i - 1
-        group_fitness = @scraped_list[index]
         
+        index = input.to_i - 1
+    
+        group_fitness = @scraped_list[index]
         if group_fitness == nil
             puts "\n\n"
-            puts "Please select an available class from the list".cyan
-            puts "\n\n"
+            puts "Please select an available class from the list".red
+            puts "\n"
             return self.ask_which_class
         end
             puts "\n\n"
             puts group_fitness.name
             puts "\n"
             puts group_fitness.description
+            puts "\n"
         return group_fitness
     end
 
@@ -78,7 +79,7 @@ class CLI
                 
         if input == "" || input == nil || input != input.to_i.to_s
             puts "\n\n"
-            puts "Sorry, please enter a a valid zip code".cyan
+            puts "Sorry, please enter a a valid zip code".red
             puts "\n\n"
             return self.ask_for_zip_code(group_fitness)
         end
@@ -91,7 +92,7 @@ class CLI
         @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
         if  @get_locations.nil? || @get_locations.empty?
             puts "\n\n"
-            puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".cyan
+            puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".red
             puts "\n\n"
             self.group_fitness_list
             group_fitness = self.ask_which_class

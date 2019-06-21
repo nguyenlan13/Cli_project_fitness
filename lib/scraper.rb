@@ -22,11 +22,11 @@ class Scraper
             name = title_span.children[0].text.strip
             description = info.css("#" + description_name)[0].text
       
-            group_fitness = GroupFitness.new
+            group_fitness = GroupFitness.new()
             group_fitness.name = name
             group_fitness.description = description
             group_fitness.fitness_class_id = list_ids.key(name)
-            
+         
             list << group_fitness
         end
         return list
@@ -53,7 +53,7 @@ class Scraper
         return id_list
     end
 
-    
+
     def self.get_locations_post(zip_code, group_fitness)
         response = HTTParty.post(
           URL_TO_POST,
@@ -63,7 +63,6 @@ class Scraper
               "Accept" => "*/*"
           }
         )
-     
         locations = response['d'][0]['ViewByClub']
 
         list_of_locations = []
