@@ -20,8 +20,10 @@ Or install it yourself as:
 
 ## Usage
 
-cd into Cli_project_fitness folder \n
-bin/group_fitness_classes to start program\n
+'cd' into 'Cli_project_fitness folder'
+'\n'
+'bin/group_fitness_classes' to start program
+'\n'
 
 Follow command line prompts!
 
