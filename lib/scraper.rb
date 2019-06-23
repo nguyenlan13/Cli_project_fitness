@@ -3,33 +3,31 @@ class Scraper
     LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
     URL_TO_POST = "https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList"
     @@doc = Nokogiri::HTML(open(LISTINGS_URL))
-
-
+   
     def self.get_listings
         @@doc.css(".classdesc")
     end
 
 
-    def self.scrape_listings
+    def self.scrape_class_listings
         listings = self.get_listings
-        list = []
-        list_ids = self.scrape_class_ids
+        list_of_classes = []
+        id_list = self.scrape_class_ids
         listings.each do |info|
             title_span = info.css(".lah3")
             title_id = title_span.attr('id').value
-            description_name = title_id.sub! 'lblTitle', 'lblDescription'
+            description_name = title_id.gsub('lblTitle', 'lblDescription')
 
             name = title_span.children[0].text.strip
             description = info.css("#" + description_name)[0].text
-      
-            group_fitness = GroupFitness.new()
+            
+            group_fitness = GroupFitness.new
             group_fitness.name = name
             group_fitness.description = description
-            group_fitness.fitness_class_id = list_ids.key(name)
-         
-            list << group_fitness
+            group_fitness.fitness_class_id = id_list.key(name)
+            list_of_classes << group_fitness
         end
-        return list
+        return list_of_classes
     end
 
 
@@ -41,13 +39,11 @@ class Scraper
     def self.scrape_class_ids
         fitness_class_ids = self.get_class_ids
         id_list = {}
-        fitness_class_ids.each do |info|
-            info.children.each do |data, index|
-                if data.children.text != "" && data.children.text != "Select a Class..."
-                    id_name = data.children.text
-                    id_value = data.attributes['value'].value
-                    id_list[id_value] = id_name
-                end
+        fitness_class_ids.children.each do |info| 
+            if info.children.text != "" && info.children.text != "Select a Class..."
+                id_name = info.children.text
+                id_value = info.attributes['value'].value
+                id_list[id_value] = id_name
             end
         end
         return id_list
@@ -78,7 +74,7 @@ class Scraper
             gym_location.location_name = location_name
             gym_location.address = address 
             gym_location.distance = distance
-        
+
             class_schedule = ""
             schedules.each do |schedule, schedule_details|
                 day = schedule['Day'].to_s.gsub("&nbsp;","       ")
