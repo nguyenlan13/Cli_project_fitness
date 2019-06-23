@@ -100,7 +100,7 @@ class CLI
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".magenta
             puts "\n\n"
             self.gym_locations_list
-            puts "Would you like to see class? (Y/N)".magenta
+            puts "Would you like to see a another class? (Y/N)".magenta
             puts "\n\n"
             loop do
                 input = gets.strip.upcase
