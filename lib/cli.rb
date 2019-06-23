@@ -4,19 +4,19 @@ class CLI
         self.welcome
         @scraped_list = Scraper.scrape_listings
         loop do
-            input = self.ask_to_see_list.downcase
-            if input == "exit" || input == "n"
+            input = self.ask_to_see_list.upcase
+            if input == "EXIT" || input == "N" || input =="NO"
                 puts "See you next time!".red
                 puts "\n\n"
                 return
-            elsif input == "y" || input == "yes"
+            elsif input == "Y" || input == "YES"
                 self.group_fitness_list
                 group_fitness = self.ask_which_class
                 zip_code = self.ask_for_zip_code(group_fitness)
                 self.show_classes_by_zip(zip_code, group_fitness)
                 return
             else
-                puts "Sorry, please enter a valid response (y/n)".red
+                puts "Sorry, please enter a valid response (Y/N)".red
             end
         end
     end
@@ -31,7 +31,7 @@ class CLI
 
     def ask_to_see_list
         puts "\n"
-        puts "Would you like to see the available group fitness classes? (y/n)".magenta
+        puts "Would you like to see the available group fitness classes? (Y/N)".magenta
         puts "\n\n"
         input = gets.strip
         puts "\n\n"
@@ -100,7 +100,27 @@ class CLI
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".magenta
             puts "\n\n"
             self.gym_locations_list
-            return       
+            puts "Would you like to see class? (Y/N)".magenta
+            puts "\n\n"
+            loop do
+                input = gets.strip.upcase
+                if input == "EXIT" || input == "N" || input == "NO"
+                    puts "\n\n"
+                    puts "Enjoy your class!".yellow
+                    puts "\n\n"
+                    return
+                elsif input == "Y" || input == "YES"
+                    puts "\n\n"
+                    loop do 
+                        self.group_fitness_list
+                        group_fitness = self.ask_which_class
+                        self.show_classes_by_zip(zip_code, group_fitness)
+                        return
+                    end
+                else
+                    puts "Sorry, please enter a valid response (Y/N)".red
+                end
+            end
         end
     end
 
@@ -121,8 +141,8 @@ class CLI
             puts "\n"
             puts "#{gym_location.distance}".yellow
             puts "\n"
-            puts "#{gym_location.class_schedule}".magenta
+            puts "#{gym_location.class_schedule}"
             puts "\n\n"
         end
     end
-end
+  end
