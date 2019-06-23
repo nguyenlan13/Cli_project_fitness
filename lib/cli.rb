@@ -3,7 +3,7 @@ class CLI
     def run
         self.welcome
         @scraped_list = Scraper.scrape_class_listings
-             loop do
+        loop do
             input = self.ask_to_see_list.upcase
             if input == "EXIT" || input == "N" || input =="NO"
                 puts "See you next time!".red
@@ -44,14 +44,15 @@ class CLI
         puts "Please select class number to see description:".magenta
         puts "\n"
         input = gets.strip
-        if input == "" || input == nil || input != input.to_i.to_s 
+        if input == "" || input == nil || input != input.to_i.to_s || input.to_i <= 0
             puts "\n\n"
             puts "Sorry, please enter a valid number".red
             puts "\n\n"
             return self.ask_which_class
         end
-
+       
         index = input.to_i - 1
+               
         group_fitness = @scraped_list[index]
         if group_fitness == nil
             puts "\n\n"

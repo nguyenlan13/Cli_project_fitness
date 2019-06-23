@@ -59,29 +59,32 @@ class Scraper
           }
         )
         locations = response['d'][0]['ViewByClub']
-
-        list_of_locations = []
-        locations.each do |location, location_details|
-            location_name = location['ClubName']
-            location_address1 = location['AddressLine1']
-            location_address2 = location['AddressLine2']
-            address = "#{location_address1} #{location_address2}"
-            distance = location['Distance']
-            schedules = location['ClassSchedule']
-         
-            gym_location = GymLocation.new(location_name, address, distance)
-        
-            class_schedule = ""
-            schedules.each do |schedule, schedule_details|
-                day = schedule['Day'].to_s.gsub("&nbsp;","       ")
-                time = schedule['Time']
-                instructor = schedule['Instructor'].strip
-                class_schedule += "#{day}  #{time} - #{instructor}\n"
+        if locations == nil
+            return locations
+        else
+            list_of_locations = []
+            locations.each do |location, location_details|
+                location_name = location['ClubName']
+                location_address1 = location['AddressLine1']
+                location_address2 = location['AddressLine2']
+                address = "#{location_address1} #{location_address2}"
+                distance = location['Distance']
+                schedules = location['ClassSchedule']
+            
+                gym_location = GymLocation.new(location_name, address, distance)
+            
+                class_schedule = ""
+                schedules.each do |schedule, schedule_details|
+                    day = schedule['Day'].to_s.gsub("&nbsp;","       ")
+                    time = schedule['Time']
+                    instructor = schedule['Instructor'].strip
+                    class_schedule += "#{day}  #{time} - #{instructor}\n"
+                end
+                gym_location.class_schedule = class_schedule
+                list_of_locations << gym_location
             end
-            gym_location.class_schedule = class_schedule
-            list_of_locations << gym_location
+            return list_of_locations
         end
-        return list_of_locations
     end
 end
 
