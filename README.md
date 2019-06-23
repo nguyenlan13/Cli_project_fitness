@@ -1,6 +1,6 @@
 # Fitness
 
-Welcome to Group Fitness! This Ruby gem provides a command line interface to view the name and description of group fitness classes offered by LA Fitness. In addition, the class schedule can be viewed for a specific class and location.
+Welcome to Group Fitness! This Ruby gem provides a command line interface to view the name and description of group fitness classes offered by LA Fitness. In addition, the class schedule can be viewed for a specific class and the gyms located within 10 miles of chosen zip code.
 
 ## Installation
 
@@ -20,8 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-cd into Cli_project_fitness folder
-bin/group_fitness_classes to start program
+cd into Cli_project_fitness folder \n
+bin/group_fitness_classes to start program\n
 
 Follow command line prompts!
 
