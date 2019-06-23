@@ -3,7 +3,7 @@ class CLI
     def run
         self.welcome
         @scraped_list = Scraper.scrape_class_listings
-        loop do
+             loop do
             input = self.ask_to_see_list.upcase
             if input == "EXIT" || input == "N" || input =="NO"
                 puts "See you next time!".red
@@ -13,8 +13,8 @@ class CLI
                 self.group_fitness_list
                 group_fitness = self.ask_which_class
                 zip_code = self.ask_for_zip_code(group_fitness)
-                return self.show_classes_by_zip(zip_code, group_fitness)
-               
+                self.show_classes_by_zip(zip_code, group_fitness)
+                return 
             else
                 puts "Sorry, please enter a valid response (Y/N)".red
             end
@@ -94,8 +94,8 @@ class CLI
             self.group_fitness_list
             group_fitness = self.ask_which_class
             zip_code = self.ask_for_zip_code(group_fitness)
-           return self.show_classes_by_zip(zip_code, group_fitness)
-            
+            self.show_classes_by_zip(zip_code, group_fitness)
+            return 
         else
             puts "\n\n"
             puts "Here are the schedule details for #{group_fitness.name} at the gyms in your area:".magenta
@@ -115,8 +115,8 @@ class CLI
                     loop do 
                         self.group_fitness_list
                         group_fitness = self.ask_which_class
-                       return self.show_classes_by_zip(zip_code, group_fitness)
-                        
+                        self.show_classes_by_zip(zip_code, group_fitness)
+                        return
                     end
                 else
                     puts "Sorry, please enter a valid response (Y/N)".red

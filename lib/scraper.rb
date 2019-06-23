@@ -13,6 +13,7 @@ class Scraper
         listings = self.get_listings
         list_of_classes = []
         id_list = self.scrape_class_ids
+        
         listings.each do |info|
             title_span = info.css(".lah3")
             title_id = title_span.attr('id').value
@@ -20,11 +21,9 @@ class Scraper
 
             name = title_span.children[0].text.strip
             description = info.css("#" + description_name)[0].text
-            
-            group_fitness = GroupFitness.new
-            group_fitness.name = name
-            group_fitness.description = description
-            group_fitness.fitness_class_id = id_list.key(name)
+            fitness_class_id = id_list.key(name)
+            group_fitness = GroupFitness.new(name, description, fitness_class_id)
+        
             list_of_classes << group_fitness
         end
         return list_of_classes
@@ -39,7 +38,7 @@ class Scraper
     def self.scrape_class_ids
         fitness_class_ids = self.get_class_ids
         id_list = {}
-        fitness_class_ids.children.each do |info| 
+        fitness_class_ids.children.each do |info|
             if info.children.text != "" && info.children.text != "Select a Class..."
                 id_name = info.children.text
                 id_value = info.attributes['value'].value
@@ -70,11 +69,8 @@ class Scraper
             distance = location['Distance']
             schedules = location['ClassSchedule']
          
-            gym_location = GymLocation.new
-            gym_location.location_name = location_name
-            gym_location.address = address 
-            gym_location.distance = distance
-
+            gym_location = GymLocation.new(location_name, address, distance)
+        
             class_schedule = ""
             schedules.each do |schedule, schedule_details|
                 day = schedule['Day'].to_s.gsub("&nbsp;","       ")
