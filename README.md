@@ -20,12 +20,12 @@ Or install it yourself as:
 
 ## Usage
 
-<code>cd</code> "into" <code>Cli_project_fitness folder</code>
+<code>cd</code> into <code>Cli_project_fitness folder</code>
 
-<code>bin/group_fitness_classes</code> "to start program"
+<code>bin/group_fitness_classes</code> to start program
 
 
-"Follow command line prompts!"
+Follow command line prompts!
 
 ## Development
 
