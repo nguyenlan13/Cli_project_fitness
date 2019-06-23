@@ -1,8 +1,8 @@
-class CLI
+class Fitness::CLI
 
     def run
         self.welcome
-        @scraped_list = Scraper.scrape_class_listings
+        @scraped_list = Fitness::Scraper.scrape_class_listings
         loop do
             input = self.ask_to_see_list.upcase
             if input == "EXIT" || input == "N" || input =="NO"
@@ -87,7 +87,7 @@ class CLI
 
 
     def show_classes_by_zip(zip_code, group_fitness)
-        @get_locations = Scraper.get_locations_post(zip_code, group_fitness)
+        @get_locations = Fitness::Scraper.get_locations_post(zip_code, group_fitness)
         if  @get_locations.nil? || @get_locations.empty?
             puts "\n\n"
             puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".red
@@ -128,7 +128,7 @@ class CLI
 
 
     def group_fitness_list      
-        GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
+        Fitness::GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
             i = index + 1
             puts "#{i}".magenta + " - " + "#{fitness_class.name}".yellow
         end       
@@ -136,7 +136,7 @@ class CLI
 
 
     def gym_locations_list
-        GymLocation.all.each_with_index do |gym_location, index|
+        Fitness::GymLocation.all.each_with_index do |gym_location, index|
             i = index + 1
             puts "#{i}".bold.magenta + " - " + "#{gym_location.location_name}".bold.yellow
             puts "#{gym_location.address}".bold.yellow

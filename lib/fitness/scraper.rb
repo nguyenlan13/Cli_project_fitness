@@ -1,4 +1,4 @@
-class Scraper
+class Fitness::Scraper
 
     LISTINGS_URL = "https://www.lafitness.com/Pages/AerobicClasses.aspx"
     URL_TO_POST = "https://www.lafitness.com/Pages/LocateClassNearYou.aspx/GetClassList"
@@ -22,7 +22,7 @@ class Scraper
             name = title_span.children[0].text.strip
             description = info.css("#" + description_name)[0].text
             fitness_class_id = id_list.key(name)
-            group_fitness = GroupFitness.new(name, description, fitness_class_id)
+            group_fitness = Fitness::GroupFitness.new(name, description, fitness_class_id)
         
             list_of_classes << group_fitness
         end
@@ -71,7 +71,7 @@ class Scraper
                 distance = location['Distance']
                 schedules = location['ClassSchedule']
             
-                gym_location = GymLocation.new(location_name, address, distance)
+                gym_location = Fitness::GymLocation.new(location_name, address, distance)
             
                 class_schedule = ""
                 schedules.each do |schedule, schedule_details|

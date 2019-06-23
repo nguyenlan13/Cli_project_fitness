@@ -1,4 +1,4 @@
-class GroupFitness
+class Fitness::GroupFitness
 
     @@all = []
 

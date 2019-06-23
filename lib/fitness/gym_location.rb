@@ -1,4 +1,4 @@
-class GymLocation
+class Fitness::GymLocation
 
     @@all = []
 

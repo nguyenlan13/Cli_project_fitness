@@ -1,6 +1,6 @@
 # Fitness
 
-Welcome to Group Fitness! This Ruby gem provides a command line interface to view the name and description of group fitness classes offered by LA Fitness. In addition, the class schedule can be viewed for a spcific class and location.
+Welcome to Group Fitness! This Ruby gem provides a command line interface to view the name and description of group fitness classes offered by LA Fitness. In addition, the class schedule can be viewed for a specific class and location.
 
 ## Installation
 
@@ -20,6 +20,9 @@ Or install it yourself as:
 
 ## Usage
 
+cd into Cli_project_fitness folder
+bin/group_fitness_classes to start program
+
 Follow command line prompts!
 
 ## Development
@@ -30,7 +33,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[nguyenlan13]/fitness. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/nguyenlan13/Cli_project_fitness. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -38,4 +41,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Fitness project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/fitness/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Fitness project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nguyenlan13/Cli_project_fitness/blob/master/CODE_OF_CONDUCT.md).

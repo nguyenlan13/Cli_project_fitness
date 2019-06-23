@@ -14,7 +14,7 @@ module Fitness
 end
 
 require_relative "./fitness/version"
-require_relative './group_fitness'
-require_relative './gym_location'
-require_relative './scraper'
-require_relative './cli'
+require_relative './fitness/group_fitness'
+require_relative './fitness//gym_location'
+require_relative './fitness/scraper'
+require_relative './fitness/cli'
