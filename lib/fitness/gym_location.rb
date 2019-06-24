@@ -2,7 +2,8 @@ class Fitness::GymLocation
 
     @@all = []
 
-    attr_accessor  :class_schedule
+    attr_accessor :class_schedule
+    attr_writer :zip_code 
     attr_reader :location_name, :address, :distance
 
     def initialize(location_name, address, distance)
