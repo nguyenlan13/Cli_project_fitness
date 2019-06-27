@@ -50,6 +50,7 @@ class Fitness::Scraper
 
 
     def self.get_locations_post(zip_code, group_fitness)
+       
         response = HTTParty.post(
           URL_TO_POST,
           :body => JSON.generate({ClassId: group_fitness.fitness_class_id, ZipCode: zip_code, MileRange: 10}),
@@ -58,7 +59,9 @@ class Fitness::Scraper
               "Accept" => "*/*"
           }
         )
+        
         locations = response['d'][0]['ViewByClub']
+        puts "yay"
         if locations == nil
             return locations
         else

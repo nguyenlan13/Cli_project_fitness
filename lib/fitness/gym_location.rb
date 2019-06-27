@@ -10,10 +10,33 @@ class Fitness::GymLocation
         @location_name = location_name
         @address = address
         @distance = distance
+        @class_schedule = class_schedule
+        @group_fitness = []
         @@all << self
     end
 
     def self.all
         @@all
     end
+
+    # def add_fitness_class(group_fitness_class)
+    #     @group_fitness << group_fitness_class
+    #     group_fitness_class.gym_locations = self
+
+    # end
+
+
+    # def fitness_classes
+    #     @group_fitness
+    # end
+
+
+    # def add_fitness_class_by_name(class_name)
+    #     group_fitness_class = GroupFitness.new(class_name)
+    #    add_fitness_class(group_fitness_class)
+    #     
+    # end
+
 end
+
+  
