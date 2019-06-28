@@ -17,5 +17,21 @@ class Fitness::GroupFitness
         @@all
     end
 
+    def self.add_gym_location(gym_location)
+        gym_location = GymLocation.new(gym_location, self)
+        @gym_locations << gym_location
+        gym_location
+    end
+
+
+    # def self.see_gym_locations
+    #     @gym_locations
+    # end
+
+
+    # def add_gym_location_by_name(location_name)
+    #     gym_location = GymLocation.new(location_name)
+    #     add_gym_location(gym_location)
+    # end
     
 end

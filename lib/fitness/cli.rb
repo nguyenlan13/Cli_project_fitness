@@ -87,10 +87,9 @@ class Fitness::CLI
 
 
     def show_classes_by_zip(zip_code, group_fitness)
-        group_fitness.gym_locations = Fitness::Scraper.get_locations_post(zip_code, group_fitness)
-        Fitness::Scraper.get_locations_post(zip_code, group_fitness.gym_locations) unless group_fitness.gym_locations.length != 0
        
-        #binding.pry
+         group_fitness.gym_locations = Fitness::Scraper.get_locations_post(zip_code, group_fitness) unless group_fitness.gym_locations.length != 0
+
         if  group_fitness.gym_locations.nil? || group_fitness.gym_locations.empty?
             puts "\n\n"
             puts "Sorry, #{group_fitness.name} was not found in your selected area, please choose another class:".red
@@ -150,4 +149,4 @@ class Fitness::CLI
             puts "\n\n"
         end
     end
-  end
+  end 

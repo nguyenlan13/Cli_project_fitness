@@ -23,7 +23,7 @@ class Fitness::Scraper
             description = info.css("#" + description_name)[0].text
             fitness_class_id = id_list.key(name)
             group_fitness = Fitness::GroupFitness.new(name, description, fitness_class_id)
-        
+         
             list_of_classes << group_fitness
         end
         return list_of_classes
@@ -48,9 +48,7 @@ class Fitness::Scraper
         return id_list
     end
 
-
     def self.get_locations_post(zip_code, group_fitness)
-       
         response = HTTParty.post(
           URL_TO_POST,
           :body => JSON.generate({ClassId: group_fitness.fitness_class_id, ZipCode: zip_code, MileRange: 10}),
@@ -61,7 +59,6 @@ class Fitness::Scraper
         )
         
         locations = response['d'][0]['ViewByClub']
-        puts "yay"
         if locations == nil
             return locations
         else
@@ -75,7 +72,7 @@ class Fitness::Scraper
                 schedules = location['ClassSchedule']
             
                 gym_location = Fitness::GymLocation.new(location_name, address, distance)
-            
+               
                 class_schedule = ""
                 schedules.each do |schedule, schedule_details|
                     day = schedule['Day'].to_s.gsub("&nbsp;","       ")
