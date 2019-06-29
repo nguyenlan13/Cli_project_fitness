@@ -17,11 +17,16 @@ class Fitness::GroupFitness
         @@all
     end
 
-    def self.add_gym_location(gym_location)
-        gym_location = GymLocation.new(gym_location, self)
-        @gym_locations << gym_location
-        gym_location
-    end
+    # def self.find_or_create_by_name(name)
+    #     find_by_name(name) || create(name)
+    #     @gym_locations << self
+    # end
+
+    # def self.add_gym_location(gym_location)
+    #     gym_location = GymLocation.new(gym_location, self)
+    #     @gym_locations << gym_location
+    #     gym_location
+    # end
 
 
     # def self.see_gym_locations

@@ -25,6 +25,8 @@ class Fitness::Scraper
             group_fitness = Fitness::GroupFitness.new(name, description, fitness_class_id)
          
             list_of_classes << group_fitness
+
+            group_fitness.group_fitness_classes = Fitness::GymLocation.find_or_create_by_name(list_of_classes)
         end
         return list_of_classes
     end
