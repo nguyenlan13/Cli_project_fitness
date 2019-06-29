@@ -9,6 +9,7 @@ class Fitness::GroupFitness
         @name = name
         @description = description
         @fitness_class_id = fitness_class_id
+        #a many to many relationship
         @gym_locations = []
         @@all << self
     end

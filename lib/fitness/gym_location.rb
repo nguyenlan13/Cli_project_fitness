@@ -11,6 +11,7 @@ class Fitness::GymLocation
         @address = address
         @distance = distance
         #@class_schedule = class_schedule
+        #a many to many relationship
         @group_fitness_classes = []
         @@all << self
     end
