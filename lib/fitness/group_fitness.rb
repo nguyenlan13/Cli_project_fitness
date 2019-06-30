@@ -20,7 +20,7 @@ class Fitness::GroupFitness
 
     def self.find_or_create(location_name, address, distance)
          find = self.all.detect {|gym_locations| gym_locations if gym_locations.location_name == location_name} 
-         find == nil? self.new(location_name, address, distance): find
+         find == nil? self.new(location_name, address, distance)
         end
     end
 

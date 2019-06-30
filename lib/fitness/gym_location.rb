@@ -22,11 +22,11 @@ class Fitness::GymLocation
 
     def self.find_or_create(name, description=nil, fitness_class_id)
         find = self.all.detect {|group_fitness_classes| group_fitness_classes if group_fitness_classes.name == name} 
-        find == nil? self.new(name, description=nil, fitness_class_id): find
+        find == nil? self.new(name, description=nil, fitness_class_id)
        end
    end
 
-   def self.add_gym_location(gym_location)
+   def self.add_group_fitness_classes(group_fitness_classes)
        self.group_fitness_classes << GroupFitness.find_or_create(group_fitness_classes)
    end
 

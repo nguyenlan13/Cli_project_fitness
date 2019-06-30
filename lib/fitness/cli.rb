@@ -130,7 +130,7 @@ class Fitness::CLI
 
 
     def group_fitness_list      
-        Fitness::GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
+        Fitness::GroupFitness.gym_locations.sort_by(&:name).each_with_index do |fitness_class, index|
             i = index + 1
             puts "#{i}".magenta + " - " + "#{fitness_class.name}".yellow
         end       
@@ -138,7 +138,7 @@ class Fitness::CLI
 
 
     def gym_locations_list
-        Fitness::GymLocation.all.each_with_index do |gym_location, index|
+        Fitness::GymLocation.group_fitness_classes.each_with_index do |gym_location, index|
             i = index + 1
             puts "#{i}".bold.magenta + " - " + "#{gym_location.location_name}".bold.yellow
             puts "#{gym_location.address}".bold.yellow
