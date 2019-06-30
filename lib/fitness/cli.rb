@@ -135,15 +135,16 @@ class Fitness::CLI
         
         # group_fitness_class.sort_by(&:name).each_with_index do |group_fitness_class, index|
             i = index + 1
-            puts "#{i}".magenta + " - " + "#{group_fitness_class.name}".yellow
+            puts "#{i}".magenta + " - " + "#{fitness_class.name}".yellow
         end       
     end
 
 
     def gym_locations_list
         Fitness::GymLocation.all.each_with_index do |gym_location, index|
+        # location = Fitness::GroupFitness.add_gym_location
 
-        # Fitness::GroupFitness.all.each_with_index do |gym_location, index|
+        # location.gym_locations.each_with_index do |gym_location, index|
             i = index + 1
             puts "#{i}".bold.magenta + " - " + "#{gym_location.location_name}".bold.yellow
             puts "#{gym_location.address}".bold.yellow

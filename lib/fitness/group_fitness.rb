@@ -29,6 +29,9 @@ class Fitness::GroupFitness
         self.gym_locations << Fitness::GymLocation.find_or_create(gym_location)
     end
 
+    # def self.add_gym_location
+    #     self.gym_locations << Fitness::GymLocation.all
+    # end
 
     # def self.see_gym_locations
     #     self.gym_locations

@@ -28,7 +28,7 @@ class Fitness::GymLocation
     end
 
     def self.add_group_fitness_classes(group_fitness)
-        @group_fitness_classes << Fitness::GroupFitness.find_or_create(group_fitness)
+        self.group_fitness_classes << Fitness::GroupFitness.find_or_create(group_fitness)
     end
 
 
