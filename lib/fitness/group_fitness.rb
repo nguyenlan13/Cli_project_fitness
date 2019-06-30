@@ -1,5 +1,6 @@
+#require_relative '../concerns/findable'
 class Fitness::GroupFitness
-
+    #extend Concerns::Findable
     @@all = []
 
     attr_accessor :description, :gym_locations
@@ -18,19 +19,19 @@ class Fitness::GroupFitness
         @@all
     end
 
-    def self.find_or_create(location_name, address, distance)
-         find = self.all.detect {|gym_locations| gym_locations if gym_locations.location_name == location_name} 
-         find == nil? self.new(location_name, address, distance)
+    def self.find_or_create(name, description=nil, fitness_class_id)
+        find = self.all.detect {|group_fitness_classes| group_fitness_classes if group_fitness_classes.name == name && group_fitness_classes.fitness_class_id == fitness_class_id} 
+        find == nil? do Fitness::GroupFitness.new(name, description=nil, fitness_class_id)
         end
-    end
+   end
 
-    def self.add_gym_location(gym_locations)
-        self.gym_locations << GymLocation.find_or_create(gym_locations)
+    def self.add_gym_location(gym_location)
+        self.gym_locations << Fitness::GymLocation.find_or_create(gym_location)
     end
 
 
     # def self.see_gym_locations
-    #     @gym_locations
+    #     self.gym_locations
     # end
     
 end

@@ -130,15 +130,20 @@ class Fitness::CLI
 
 
     def group_fitness_list      
-        Fitness::GroupFitness.gym_locations.sort_by(&:name).each_with_index do |fitness_class, index|
+        Fitness::GroupFitness.all.sort_by(&:name).each_with_index do |fitness_class, index|
+        # group_fitness_class = Fitness::GroupFitness.find_or_create(name, description=nil, fitness_class_id)
+        
+        # group_fitness_class.sort_by(&:name).each_with_index do |group_fitness_class, index|
             i = index + 1
-            puts "#{i}".magenta + " - " + "#{fitness_class.name}".yellow
+            puts "#{i}".magenta + " - " + "#{group_fitness_class.name}".yellow
         end       
     end
 
 
     def gym_locations_list
-        Fitness::GymLocation.group_fitness_classes.each_with_index do |gym_location, index|
+        Fitness::GymLocation.all.each_with_index do |gym_location, index|
+
+        # Fitness::GroupFitness.all.each_with_index do |gym_location, index|
             i = index + 1
             puts "#{i}".bold.magenta + " - " + "#{gym_location.location_name}".bold.yellow
             puts "#{gym_location.address}".bold.yellow
