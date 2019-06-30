@@ -18,26 +18,19 @@ class Fitness::GroupFitness
         @@all
     end
 
-    # def self.find_or_create_by_name(name)
-    #     find_by_name(name) || create(name)
-    #     @gym_locations << self
-    # end
+    def self.find_or_create(location_name, address, distance)
+         find = self.all.detect {|gym_locations| gym_locations if gym_locations.location_name == location_name} 
+         find == nil? self.new(location_name, address, distance): find
+        end
+    end
 
-    # def self.add_gym_location(gym_location)
-    #     gym_location = GymLocation.new(gym_location, self)
-    #     @gym_locations << gym_location
-    #     gym_location
-    # end
+    def self.add_gym_location(gym_locations)
+        self.gym_locations << GymLocation.find_or_create(gym_locations)
+    end
 
 
     # def self.see_gym_locations
     #     @gym_locations
-    # end
-
-
-    # def add_gym_location_by_name(location_name)
-    #     gym_location = GymLocation.new(location_name)
-    #     add_gym_location(gym_location)
     # end
     
 end

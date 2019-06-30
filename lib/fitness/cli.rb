@@ -2,7 +2,7 @@ class Fitness::CLI
 
     def run
         self.welcome
-        @scraped_list = Fitness::Scraper.scrape_class_listings
+        @scraped_list = Fitness::Scraper.scrape_class_listings if @scraped_list == nil
         loop do
             input = self.ask_to_see_list.upcase
             if input == "EXIT" || input == "N" || input =="NO"
